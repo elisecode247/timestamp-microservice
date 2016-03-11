@@ -7,7 +7,7 @@
   "author": "Elise <elisecode247@gmail.com>",
   "dependencies": {
     "express": "~3.2.4",
-    "sugar-date": "~2.14.12"
+    "sugar-date": "2.14.12"
   },
     "engines": {
     "node": "4.3.2"
