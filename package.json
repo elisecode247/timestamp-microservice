@@ -9,5 +9,7 @@
     "express": "~3.2.4",
     "sugar-date": "~2.14.12"
   },
-  "engine": "node >= 4.3.2"
+    "engines": {
+    "node": "4.3.2"
+  }
 }
