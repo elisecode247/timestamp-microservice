@@ -14,21 +14,22 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:string', function(req, res) {
-  if (Number.isInteger(parseInt(req.params.string,10)) === true ) {
+  var myRe = /\D/i;
+  if (!myRe.test(req.params.string)) {
     var timestamp = Date.utc.create(parseInt(req.params.string));
     if (Date.create(timestamp).format('{Month} {d}, {yyyy}') === "Invalid Date") {
       res.send(timeobject)
     }
     else {
-       timeobject.unix = req.params.string;
+      timeobject.unix = req.params.string;
       timeobject.natural = Date.create(timestamp).format('{Month} {d}, {yyyy}');
       res.send(timeobject)
     }
   }
   else if (new Date(req.params.string).isValid() === true) {
-    var timestamp = Date.create(req.params.string);
-    timeobject.unix = Date.parse(timestamp);
-    timeobject.natural = Date.create(timestamp).format('{Month} {d}, {yyyy}');
+    var naturalDate = Date.create(req.params.string);
+    timeobject.unix = Date.parse(naturalDate);
+    timeobject.natural = Date.create(naturalDate).format('{Month} {d}, {yyyy}');
     res.send(timeobject)
   }
   else {
@@ -37,5 +38,5 @@ app.get('/:string', function(req, res) {
 });
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function() {
-  console.log('app is now listening on port 3000!');
+  console.log('app is now listening on port 3000');
 });
