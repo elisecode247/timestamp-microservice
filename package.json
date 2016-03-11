@@ -1,13 +1,11 @@
 {
-  "name": "chat-example",
+  "name": "timestamp-microservice",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "return a json object with unix and natural language formats of user-passed date",
   "main": "server.js",
-  "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "repository": "https://github.com/elisecode247/timestamp-microservice",
+  "author": "Elise <elisecode247@gmail.com>",
   "dependencies": {
-    "async": "~0.2.8",
     "express": "~3.2.4",
-    "socket.io": "~0.9.14"
   }
 }
