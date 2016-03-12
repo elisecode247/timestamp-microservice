@@ -14,29 +14,26 @@ app.get('/', function(req, res) {
 });
 
 app.get('/:string', function(req, res) {
-  var myRe = /\D/i;
-  if (!myRe.test(req.params.string)) {
-    console.log("unix format")
-    var timestamp = Date.utc.create(parseInt(req.params.string));
-    if (Date.create(timestamp).format('{Month} {d}, {yyyy}') === "Invalid Date") {
-      res.send(timeobject)
-      console.log("not valid unix format")
+  var myRe = /[^\d-]/i; // find any character that is not a digit nor hyphen (for negative integers)
+  var naturalDate = Date.create(req.params.string);
+  var timestamp = Date.utc.create(parseInt(req.params.string));
+
+  if (!myRe.test(req.params.string)) { // if param is an integer
+    if (timestamp.format('{Month} {d}, {yyyy}') === "Invalid Date") { // invalid unix date
+      res.send(timeobject) 
     }
-    else {
+    else { // valid unix date
       timeobject.unix = req.params.string;
-      timeobject.natural = Date.create(timestamp).format('{Month} {d}, {yyyy}');
-      res.send(timeobject)
-      console.log("valid unix format")
+      timeobject.natural = timestamp.format('{Month} {d}, {yyyy}');
+      res.send(timeobject) 
     }
   }
-  else if (new Date(req.params.string).isValid() === true) {
-    var naturalDate = Date.create(req.params.string);
-    console.log("valid natural format")
+  else if (naturalDate.isValid() === true) { //valid natural date
     timeobject.unix = Date.parse(naturalDate);
-    timeobject.natural = Date.create(naturalDate).format('{Month} {d}, {yyyy}');
+    timeobject.natural = naturalDate.format('{Month} {d}, {yyyy}');
     res.send(timeobject)
   }
-  else {
+  else { // no valid date formats
     console.log("error")
     timeobject.unix = null;
     timeobject.natural = null;
